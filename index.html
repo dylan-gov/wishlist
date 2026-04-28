@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Wishlist</title>
+
+<style>
+body{
+font-family: Arial;
+text-align:center;
+background:#f5f5f5;
+}
+
+input{
+padding:10px;
+width:250px;
+}
+
+button{
+padding:10px;
+margin:5px;
+}
+
+.item{
+background:white;
+margin:10px;
+padding:10px;
+border-radius:10px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>Our Wishlist ❤️</h1>
+
+<input id="searchBox" placeholder="Search wishlist item">
+<button onclick="search()">Search</button>
+
+<h2>Results</h2>
+<div id="results"></div>
+
+<h2>Wishlist</h2>
+<div id="wishlist"></div>
+
+<script>
+
+let wishlist = JSON.parse(localStorage.getItem("wishlist")) || []
+
+function saveWishlist(){
+localStorage.setItem("wishlist", JSON.stringify(wishlist))
+renderWishlist()
+}
+
+function renderWishlist(){
+
+let html=""
+
+wishlist.forEach(item=>{
+html += `
+<div class="item">
+${item}
+</div>
+`
+})
+
+document.getElementById("wishlist").innerHTML = html
+}
+
+function addItem(name){
+
+wishlist.push(name)
+
+saveWishlist()
+
+}
+
+async function search(){
+
+let query = document.getElementById("searchBox").value
+
+let response = await fetch("https://api.openai.com/v1/chat/completions",{
+method:"POST",
+headers:{
+"Content-Type":"application/json",
+"Authorization":"Bearer YOUR_API_KEY"
+},
+body:JSON.stringify({
+model:"gpt-4o-mini",
+messages:[
+{role:"user",content:`Suggest 5 wishlist items for ${query}`}
+]
+})
+})
+
+let data = await response.json()
+
+let text = data.choices[0].message.content
+
+let results = text.split("\n")
+
+let html=""
+
+results.forEach(item=>{
+html += `
+<div class="item">
+${item}
+<button onclick="addItem('${item}')">Add</button>
+</div>
+`
+})
+
+document.getElementById("results").innerHTML = html
+
+}
+
+renderWishlist()
+
+</script>
+
+</body>
+</html>
