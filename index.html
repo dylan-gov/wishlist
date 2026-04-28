@@ -1,151 +1,254 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <h1>Dylan & Courtney’s Wishlist ❤️</h1>
-<p class="subtitle">Our wants and needs</p>
-<style>
-  body {
-    margin: 0;
-    font-family: "Inter", "Segoe UI", Arial, sans-serif;
-    background: linear-gradient(135deg, #f4f4f5, #e4e4e7);
-    color: #111;
-    text-align: center;
-    padding: 40px 20px;
-  }
+  <title>Dylan & Courtney Wishlist</title>
 
-  h1 {
-    font-size: 42px;
-    margin-bottom: 10px;
-  }
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-  p.subtitle {
-    color: #555;
-    margin-bottom: 30px;
-  }
+    body {
+      margin: 0;
+      font-family: "Inter", "Segoe UI", Arial, sans-serif;
+      background: radial-gradient(circle at top, #ffffff 0%, #f3f4f6 45%, #e5e7eb 100%);
+      color: #0f172a;
+      padding: 45px 5%;
+      text-align: center;
+    }
 
-  input, select {
-    padding: 12px;
-    margin: 6px;
-    font-size: 14px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    outline: none;
-    background: white;
-  }
+    h1 {
+      font-size: 52px;
+      margin: 0;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
 
-  input {
-    width: 220px;
-  }
+    .subtitle {
+      font-size: 20px;
+      color: #64748b;
+      margin: 18px 0 35px;
+    }
 
-  button {
-    padding: 12px 18px;
-    border: none;
-    border-radius: 10px;
-    background: #111827;
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
-    transition: 0.2s;
-  }
+    .form-row {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
 
-  button:hover {
-    opacity: 0.9;
-  }
+    input, select {
+      height: 58px;
+      padding: 0 20px;
+      border: 1px solid #d1d5db;
+      border-radius: 14px;
+      background: white;
+      font-size: 18px;
+      outline: none;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
+    }
 
-  .container {
-    display: flex;
-    justify-content: center;
-    gap: 25px;
-    flex-wrap: wrap;
-    margin-top: 30px;
-  }
+    input {
+      width: 320px;
+    }
 
-  .list {
-    width: 360px;
-    border-radius: 18px;
-    overflow: hidden;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    background: white;
-  }
+    select {
+      width: 180px;
+      cursor: pointer;
+    }
 
-  /* Dylan side (clean/darker) */
-  .dylan-header {
-    background: linear-gradient(135deg, #111827, #1f2937);
-    color: white;
-    padding: 18px;
-    font-weight: 600;
-  }
+    button {
+      height: 58px;
+      padding: 0 30px;
+      border: none;
+      border-radius: 14px;
+      background: #111827;
+      color: white;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.18);
+    }
 
-  /* Courtney side (soft but not overly pink) */
-  .courtney-header {
-    background: linear-gradient(135deg, #d1d5db, #9ca3af);
-    color: #111;
-    padding: 18px;
-    font-weight: 600;
-  }
+    button:hover {
+      transform: translateY(-1px);
+      background: #020617;
+    }
 
-  .list-content {
-    padding: 15px;
-  }
+    .container {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
 
-  .item {
-    background: #f9fafb;
-    padding: 12px;
-    margin: 10px 0;
-    border-radius: 12px;
-    text-align: left;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+    .list {
+      width: 520px;
+      background: white;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.16);
+      text-align: left;
+    }
 
-  .item a {
-    color: #111;
-    font-weight: 600;
-    text-decoration: none;
-  }
+    .list-header {
+      height: 86px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 0 28px;
+      color: white;
+      font-size: 25px;
+      font-weight: 800;
+    }
 
-  .item a:hover {
-    text-decoration: underline;
-  }
+    .dylan-header {
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+    }
 
-  .delete {
-    background: #e5e7eb;
-    border: none;
-    padding: 6px 10px;
-    border-radius: 8px;
-    cursor: pointer;
-  }
+    .courtney-header {
+      background: linear-gradient(135deg, #b45369, #d17b94);
+    }
 
-  .delete:hover {
-    background: #d1d5db;
-  }
-</style>
+    .icon-circle {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: rgba(255,255,255,0.18);
+      font-size: 24px;
+    }
+
+    .list-content {
+      padding: 18px;
+    }
+
+    .item {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 5px 14px rgba(15, 23, 42, 0.06);
+    }
+
+    .thumb {
+      width: 72px;
+      height: 72px;
+      border-radius: 12px;
+      background: #f1f5f9;
+      display: grid;
+      place-items: center;
+      font-size: 34px;
+      flex-shrink: 0;
+    }
+
+    .item-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .item-info a {
+      display: block;
+      color: #0f172a;
+      font-size: 20px;
+      font-weight: 800;
+      text-decoration: none;
+      margin-bottom: 6px;
+    }
+
+    .item-info span {
+      display: block;
+      color: #64748b;
+      font-size: 16px;
+      overflow-wrap: anywhere;
+    }
+
+    .delete {
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      background: white;
+      color: #111827;
+      border: 1px solid #e5e7eb;
+      box-shadow: none;
+      font-size: 18px;
+    }
+
+    .delete:hover {
+      background: #f3f4f6;
+    }
+
+    .footer-note {
+      margin-top: 26px;
+      color: #64748b;
+      font-size: 17px;
+    }
+
+    @media (max-width: 700px) {
+      h1 {
+        font-size: 38px;
+      }
+
+      .list {
+        width: 100%;
+      }
+
+      input {
+        width: 100%;
+      }
+
+      select, button {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-  <input id="itemName" placeholder="Item name">
-  <input id="itemLink" placeholder="Product link">
-  <select id="person">
-    <option value="Dylan">Dylan</option>
-    <option value="Courtney">Courtney</option>
-  </select>
-  <button onclick="addItem()">Add</button>
+  <h1>Dylan & Courtney’s Wishlist ❤️</h1>
+  <p class="subtitle">Add ideas, save links, and build the perfect wishlist together.</p>
 
-<div class="container">
+  <div class="form-row">
+    <input id="itemName" placeholder="🎁 Item name">
+    <input id="itemLink" placeholder="🔗 Product link">
 
-  <div class="list">
-    <div class="dylan-header">Dylan's Wishlist</div>
-    <div id="dylanList" class="list-content"></div>
+    <select id="person">
+      <option value="Dylan">Dylan</option>
+      <option value="Courtney">Courtney</option>
+    </select>
+
+    <button onclick="addItem()">Add Item</button>
   </div>
 
-  <div class="list">
-    <div class="courtney-header">Courtney's Wishlist</div>
-    <div id="courtneyList" class="list-content"></div>
+  <div class="container">
+
+    <div class="list">
+      <div class="list-header dylan-header">
+        <div class="icon-circle">👤</div>
+        Dylan's Wishlist
+      </div>
+      <div id="dylanList" class="list-content"></div>
+    </div>
+
+    <div class="list">
+      <div class="list-header courtney-header">
+        <div class="icon-circle">♥</div>
+        Courtney's Wishlist
+      </div>
+      <div id="courtneyList" class="list-content"></div>
+    </div>
+
   </div>
 
-</div>
+  <div class="footer-note">✦ Changes sync in real-time</div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -155,13 +258,28 @@
 
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+    function getEmoji(name) {
+      const lower = name.toLowerCase();
+
+      if (lower.includes("shoe") || lower.includes("nike")) return "👟";
+      if (lower.includes("hoodie") || lower.includes("shirt")) return "👕";
+      if (lower.includes("headphone")) return "🎧";
+      if (lower.includes("watch")) return "⌚";
+      if (lower.includes("necklace") || lower.includes("jewelry")) return "💎";
+      if (lower.includes("perfume")) return "🧴";
+      if (lower.includes("bag") || lower.includes("purse")) return "👜";
+      if (lower.includes("makeup") || lower.includes("lip")) return "💄";
+
+      return "🎁";
+    }
+
     async function addItem() {
       const name = document.getElementById("itemName").value.trim();
       const link = document.getElementById("itemLink").value.trim();
       const person = document.getElementById("person").value;
 
       if (!name || !link) {
-        alert("Please enter both an item name and a link.");
+        alert("Please enter both an item name and a product link.");
         return;
       }
 
@@ -198,10 +316,19 @@
       courtneyList.innerHTML = "";
 
       data.forEach(item => {
+        const safeName = item.name.replace(/'/g, "\\'");
+        const emoji = getEmoji(item.name);
+
         const html = `
           <div class="item">
-            <button class="delete" onclick="deleteItem('${item.id}')">X</button>
-            <a href="${item.link}" target="_blank">${item.name}</a>
+            <div class="thumb">${emoji}</div>
+
+            <div class="item-info">
+              <a href="${item.link}" target="_blank">${item.name}</a>
+              <span>${item.link}</span>
+            </div>
+
+            <button class="delete" onclick="deleteItem('${item.id}')">🗑</button>
           </div>
         `;
 
