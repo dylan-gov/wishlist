@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Dylan & Courtney Wishlist</title>
+  <h1>Dylan & Courtney’s Wishlist ❤️</h1>
+<p class="subtitle">Our wants and needs</p>
 <style>
   body {
     margin: 0;
@@ -136,17 +137,19 @@
   </select>
   <button onclick="addItem()">Add</button>
 
-  <div class="container">
-    <div class="list">
-      <h2>Dylan's Wishlist</h2>
-      <div id="dylanList"></div>
-    </div>
+<div class="container">
 
-    <div class="list">
-      <h2>Courtney's Wishlist</h2>
-      <div id="courtneyList"></div>
-    </div>
+  <div class="list">
+    <div class="dylan-header">Dylan's Wishlist</div>
+    <div id="dylanList" class="list-content"></div>
   </div>
+
+  <div class="list">
+    <div class="courtney-header">Courtney's Wishlist</div>
+    <div id="courtneyList" class="list-content"></div>
+  </div>
+
+</div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
