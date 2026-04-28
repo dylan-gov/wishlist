@@ -1,133 +1,188 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Wishlist</title>
+  <title>Dylan & Courtney Wishlist</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      text-align: center;
+      padding: 30px;
+    }
 
-<style>
-body{
-font-family: Arial;
-text-align:center;
-background:#f5f5f5;
-}
+    h1 {
+      font-size: 36px;
+    }
 
-input{
-padding:10px;
-width:250px;
-}
+    input, select, button {
+      padding: 10px;
+      margin: 5px;
+      font-size: 14px;
+    }
 
-button{
-padding:10px;
-margin:5px;
-}
+    input {
+      width: 260px;
+    }
 
-.item{
-background:white;
-margin:10px;
-padding:10px;
-border-radius:10px;
-}
-</style>
+    .container {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
 
+    .list {
+      background: white;
+      width: 350px;
+      min-height: 250px;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .item {
+      background: #f1f1f1;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 10px;
+      text-align: left;
+    }
+
+    .item a {
+      font-weight: bold;
+      color: #111;
+      text-decoration: none;
+    }
+
+    .delete {
+      float: right;
+      background: #ffdddd;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
 </head>
 
 <body>
 
-<h1>Our Wishlist ❤️</h1>
+  <h1>Dylan & Courtney's Wishlist ❤️</h1>
 
-<input id="searchBox" placeholder="Search wishlist item">
-<button onclick="search()">Search</button>
+  <h2>Add Item</h2>
 
-<h2>Results</h2>
-<div id="results"></div>
+  <input id="itemName" placeholder="Item name">
+  <input id="itemLink" placeholder="Product link">
+  <select id="person">
+    <option value="Dylan">Dylan</option>
+    <option value="Courtney">Courtney</option>
+  </select>
+  <button onclick="addItem()">Add</button>
 
-<h2>Wishlist</h2>
-<div id="wishlist"></div>
+  <div class="container">
+    <div class="list">
+      <h2>Dylan's Wishlist</h2>
+      <div id="dylanList"></div>
+    </div>
 
-<script>
+    <div class="list">
+      <h2>Courtney's Wishlist</h2>
+      <div id="courtneyList"></div>
+    </div>
+  </div>
 
-let wishlist = JSON.parse(localStorage.getItem("wishlist")) || []
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-function saveWishlist(){
-localStorage.setItem("wishlist", JSON.stringify(wishlist))
-renderWishlist()
-}
+  <script>
+    const SUPABASE_URL = "PASTE_YOUR_SUPABASE_URL_HERE";
+    const SUPABASE_ANON_KEY = "PASTE_YOUR_SUPABASE_ANON_KEY_HERE";
 
-function renderWishlist(){
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-let html=""
+    async function addItem() {
+      const name = document.getElementById("itemName").value.trim();
+      const link = document.getElementById("itemLink").value.trim();
+      const person = document.getElementById("person").value;
 
-wishlist.forEach(item=>{
-html += `
-<div class="item">
-${item}
-</div>
-`
-})
+      if (!name || !link) {
+        alert("Please enter both an item name and a link.");
+        return;
+      }
 
-document.getElementById("wishlist").innerHTML = html
-}
+      const { error } = await supabaseClient
+        .from("wishlist")
+        .insert([{ name, link, person }]);
 
-function addItem(name){
+      if (error) {
+        alert("Error adding item: " + error.message);
+        return;
+      }
 
-wishlist.push(name)
+      document.getElementById("itemName").value = "";
+      document.getElementById("itemLink").value = "";
 
-saveWishlist()
+      loadItems();
+    }
 
-}
+    async function loadItems() {
+      const { data, error } = await supabaseClient
+        .from("wishlist")
+        .select("*")
+        .order("created_at", { ascending: false });
 
-async function search(){
+      if (error) {
+        alert("Error loading wishlist: " + error.message);
+        return;
+      }
 
-  let query = document.getElementById("searchBox").value.toLowerCase();
+      const dylanList = document.getElementById("dylanList");
+      const courtneyList = document.getElementById("courtneyList");
 
-  let suggestions = {
-    "nike": [
-      "Nike Air Force 1",
-      "Nike Tech Fleece Hoodie",
-      "Nike Pegasus Running Shoes",
-      "Nike Dri-FIT Shorts",
-      "Nike Backpack"
-    ],
-    "shoes": [
-      "Nike Air Max",
-      "Adidas Ultraboost",
-      "New Balance 550",
-      "Converse Chuck Taylor",
-      "Vans Old Skool"
-    ],
-    "hoodie": [
-      "Essentials Hoodie",
-      "Nike Club Hoodie",
-      "Champion Reverse Weave Hoodie",
-      "Carhartt Hoodie",
-      "Stussy Hoodie"
-    ]
-  };
+      dylanList.innerHTML = "";
+      courtneyList.innerHTML = "";
 
-  let results = suggestions[query] || [
-    `${query} gift idea`,
-    `${query} accessories`,
-    `${query} clothing`,
-    `${query} premium version`,
-    `${query} budget option`
-  ];
+      data.forEach(item => {
+        const html = `
+          <div class="item">
+            <button class="delete" onclick="deleteItem('${item.id}')">X</button>
+            <a href="${item.link}" target="_blank">${item.name}</a>
+          </div>
+        `;
 
-  let html = "";
+        if (item.person === "Dylan") {
+          dylanList.innerHTML += html;
+        } else {
+          courtneyList.innerHTML += html;
+        }
+      });
+    }
 
-  results.forEach(item=>{
-    html += `
-      <div class="item">
-        ${item}
-        <button onclick="addItem(\`${item}\`)">Add</button>
-      </div>
-    `;
-  });
+    async function deleteItem(id) {
+      const { error } = await supabaseClient
+        .from("wishlist")
+        .delete()
+        .eq("id", id);
 
-  document.getElementById("results").innerHTML = html;
-}
+      if (error) {
+        alert("Error deleting item: " + error.message);
+        return;
+      }
 
-renderWishlist()
+      loadItems();
+    }
 
-</script>
+    supabaseClient
+      .channel("wishlist-changes")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "wishlist" },
+        () => {
+          loadItems();
+        }
+      )
+      .subscribe();
+
+    loadItems();
+  </script>
 
 </body>
 </html>
