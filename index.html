@@ -77,41 +77,29 @@ saveWishlist()
 
 async function search(){
 
-let query = document.getElementById("searchBox").value
+  let query = document.getElementById("searchBox").value;
 
-let response = await fetch("https://api.openai.com/v1/chat/completions",{
-method:"POST",
-headers:{
-"Content-Type":"application/json",
-"Authorization":"Bearer YOUR_API_KEY"
-},
-body:JSON.stringify({
-model:"gpt-4o-mini",
-messages:[
-{role:"user",content:`Suggest 5 wishlist items for ${query}`}
-]
-})
-})
+  let response = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
+  let data = await response.json();
 
-let data = await response.json()
+  let text = data.choices[0].message.content;
 
-let text = data.choices[0].message.content
+  let results = text.split("\n");
 
-let results = text.split("\n")
+  let html = "";
 
-let html=""
+  results.forEach(item=>{
+    if(item.trim() !== ""){
+      html += `
+        <div class="item">
+          ${item}
+          <button onclick="addItem('${item}')">Add</button>
+        </div>
+      `;
+    }
+  });
 
-results.forEach(item=>{
-html += `
-<div class="item">
-${item}
-<button onclick="addItem('${item}')">Add</button>
-</div>
-`
-})
-
-document.getElementById("results").innerHTML = html
-
+  document.getElementById("results").innerHTML = html;
 }
 
 renderWishlist()
