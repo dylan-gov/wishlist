@@ -328,7 +328,7 @@
 
             <div class="item-info">
               <a href="${item.link}" target="_blank">${item.name}</a>
-              <span>${item.link}</span>
+              <span>${new URL(item.link).hostname}</span>
             </div>
 
             <button class="delete" onclick="deleteItem('${item.id}')">🗑</button>
