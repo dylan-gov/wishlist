@@ -77,26 +77,49 @@ saveWishlist()
 
 async function search(){
 
-  let query = document.getElementById("searchBox").value;
+  let query = document.getElementById("searchBox").value.toLowerCase();
 
-  let response = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
-  let data = await response.json();
+  let suggestions = {
+    "nike": [
+      "Nike Air Force 1",
+      "Nike Tech Fleece Hoodie",
+      "Nike Pegasus Running Shoes",
+      "Nike Dri-FIT Shorts",
+      "Nike Backpack"
+    ],
+    "shoes": [
+      "Nike Air Max",
+      "Adidas Ultraboost",
+      "New Balance 550",
+      "Converse Chuck Taylor",
+      "Vans Old Skool"
+    ],
+    "hoodie": [
+      "Essentials Hoodie",
+      "Nike Club Hoodie",
+      "Champion Reverse Weave Hoodie",
+      "Carhartt Hoodie",
+      "Stussy Hoodie"
+    ]
+  };
 
-  let text = data.choices[0].message.content;
-
-  let results = text.split("\n");
+  let results = suggestions[query] || [
+    `${query} gift idea`,
+    `${query} accessories`,
+    `${query} clothing`,
+    `${query} premium version`,
+    `${query} budget option`
+  ];
 
   let html = "";
 
   results.forEach(item=>{
-    if(item.trim() !== ""){
-      html += `
-        <div class="item">
-          ${item}
-          <button onclick="addItem('${item}')">Add</button>
-        </div>
-      `;
-    }
+    html += `
+      <div class="item">
+        ${item}
+        <button onclick="addItem(\`${item}\`)">Add</button>
+      </div>
+    `;
   });
 
   document.getElementById("results").innerHTML = html;
