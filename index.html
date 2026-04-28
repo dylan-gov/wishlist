@@ -6,89 +6,101 @@
   body {
     margin: 0;
     font-family: "Inter", "Segoe UI", Arial, sans-serif;
-    background: linear-gradient(135deg, #fff1f5, #f3e8ff);
-    color: #2d1b2f;
+    background: linear-gradient(135deg, #f4f4f5, #e4e4e7);
+    color: #111;
     text-align: center;
     padding: 40px 20px;
   }
 
   h1 {
     font-size: 42px;
-    margin-bottom: 25px;
-    color: #7c2d5c;
+    margin-bottom: 10px;
   }
 
-  h2 {
-    color: #9d174d;
-    margin-top: 20px;
+  p.subtitle {
+    color: #555;
+    margin-bottom: 30px;
   }
 
   input, select {
-    padding: 13px;
+    padding: 12px;
     margin: 6px;
-    font-size: 15px;
-    border: 1px solid #e9a8c8;
-    border-radius: 12px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
     outline: none;
     background: white;
   }
 
   input {
-    width: 260px;
-  }
-
-  input:focus, select:focus {
-    border-color: #db2777;
-    box-shadow: 0 0 0 3px rgba(219, 39, 119, 0.15);
+    width: 220px;
   }
 
   button {
-    padding: 13px 18px;
-    margin: 6px;
+    padding: 12px 18px;
     border: none;
-    border-radius: 12px;
-    background: #db2777;
+    border-radius: 10px;
+    background: #111827;
     color: white;
-    font-weight: bold;
+    font-weight: 600;
     cursor: pointer;
     transition: 0.2s;
   }
 
   button:hover {
-    background: #be185d;
-    transform: translateY(-1px);
+    opacity: 0.9;
   }
 
   .container {
     display: flex;
     justify-content: center;
-    gap: 30px;
+    gap: 25px;
     flex-wrap: wrap;
-    margin-top: 35px;
+    margin-top: 30px;
   }
 
   .list {
-    background: rgba(255, 255, 255, 0.85);
     width: 360px;
-    min-height: 260px;
-    padding: 24px;
-    border-radius: 24px;
-    box-shadow: 0 12px 30px rgba(124, 45, 92, 0.15);
-    backdrop-filter: blur(8px);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    background: white;
+  }
+
+  /* Dylan side (clean/darker) */
+  .dylan-header {
+    background: linear-gradient(135deg, #111827, #1f2937);
+    color: white;
+    padding: 18px;
+    font-weight: 600;
+  }
+
+  /* Courtney side (soft but not overly pink) */
+  .courtney-header {
+    background: linear-gradient(135deg, #d1d5db, #9ca3af);
+    color: #111;
+    padding: 18px;
+    font-weight: 600;
+  }
+
+  .list-content {
+    padding: 15px;
   }
 
   .item {
-    background: #fff7fb;
-    padding: 14px;
-    margin: 12px 0;
-    border-radius: 16px;
+    background: #f9fafb;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 12px;
     text-align: left;
-    border: 1px solid #fbcfe8;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .item a {
-    font-weight: 700;
-    color: #831843;
+    color: #111;
+    font-weight: 600;
     text-decoration: none;
   }
 
@@ -97,15 +109,15 @@
   }
 
   .delete {
-    float: right;
-    background: #ffe4e6;
-    color: #9f1239;
+    background: #e5e7eb;
+    border: none;
     padding: 6px 10px;
-    border-radius: 10px;
+    border-radius: 8px;
+    cursor: pointer;
   }
 
   .delete:hover {
-    background: #fecdd3;
+    background: #d1d5db;
   }
 </style>
 </head>
